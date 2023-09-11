@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글자 퀴즈</title>
+    <!-- 외부에 만들어진 css(cascading style sheet)파일을 불러오는 코드 참고 : 주석은 컨트롤 + / 로 만듬 -->
+    
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- 구글 웹 폰트 사용을 위한 CDN-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!--내가 만든 CSS파일-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+
+    </style>
+
+    <!-- javascript 작성 공간 -->
+    <script>
+        //[1] .form-input 의 글자 수를 읽어 .form-input-length에 출력
+        //[2] 글자 수가 초과되는 입력이 이루어지지 않도록 구현
+
+        //-2 에서는 1,000자를 넘었을 시 입력을 막는방법을 구현
+        function checkLength(){
+            var textarea = document.querySelector(".form-input");
+            // console.log(textarea.value.length);
+            maxLength = 1000; // 최대로 입력 가능한 글자의 수
+            
+            
+            if(textarea.value.length <= maxLength && textarea.value.length >= 0){
+            }
+            //만약에 1,000글자가 넘어간다면 ? 
+            // -> 1,000글자가 될 때까지 잘라서 덮어쓰기
+            // -> IME 방식의 글자들(국어, 일어, 중국어 등)
+            else{
+                alert("1,000자 넘게 입력하실 수 없습니다!")
+                var copy = textarea.value;
+                var len = copy.length;
+                while(copy.length > 1000){
+                    copy = copy.substring(0, copy.length - 1);
+                }
+                textarea.value = copy;
+            }
+            
+            var span = document.querySelector(".form-input-length");
+            span.textContent = textarea.value.length;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container w-800">
+        <div class="row center">
+            <h1>자기 소개서</h1>
+        </div>
+        <div class="row">
+            <h2>(Q) 입사 후 20년 뒤의 나의 모습은 ? (1,000자 이내)</h2>
+        </div>
+        <div class="row">
+            <textarea class="form-input w-100" row="25" id="a" oninput="checkLength();"></textarea>
+        </div>
+        <div class="row right">
+            <span class="form-input-length">0</span> / 1000
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-positive">제출하기</button>
+        </div>
+
+</body>
+</html>
